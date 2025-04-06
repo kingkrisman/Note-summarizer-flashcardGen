@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Note Summarizer</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Loader overlay -->
+    <div class="loader-container" id="loader">
+      <div class="loader-content">
+        <div class="loader">
+          <div></div>
+          <div></div>
+        </div>
+        <div class="loader-message pulse">Processing your notes...</div>
+      </div>
+    </div>
+
+    <!-- Settings modal -->
+    <div class="modal" id="settings-modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Settings</h3>
+          <button class="close-button" id="close-settings">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="settings-group">
+            <label for="api-key-input">MeaningCloud API Key:</label>
+            <input
+              type="text"
+              id="api-key-input"
+              placeholder="Enter your API key"
+            />
+            <p class="settings-help">
+              Get a free API key at
+              <a
+                href="https://www.meaningcloud.com/developer/account/subscriptions"
+                target="_blank"
+                >MeaningCloud</a
+              >
+            </p>
+          </div>
+          <div class="settings-group">
+            <label for="theme-toggle">Theme:</label>
+            <div class="theme-toggle-wrapper">
+              <span>Dark</span>
+              <label class="switch">
+                <input type="checkbox" id="theme-toggle" />
+                <span class="slider round"></span>
+              </label>
+              <span>Light</span>
+            </div>
+          </div>
+          <div class="settings-group">
+            <label>Storage:</label>
+            <button class="secondary-button" id="clear-storage-button">
+              Clear Saved Data
+            </button>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="secondary-button" id="cancel-settings">Cancel</button>
+          <button class="primary-button" id="save-settings">
+            Save Settings
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <main class="note-taker-container">
+      <header class="app-header">
+        <h1 class="app-title">Note-ify</h1>
+        <div class="app-controls">
+          <button class="icon-button" id="settings-button" title="Settings">
+            <i class="fas fa-cog"></i>
+          </button>
+        </div>
+      </header>
+
+      <section class="note-input-section">
+        <div class="note-header">
+          <label class="note-label" for="note-textarea">Your Notes:</label>
+          <div class="note-stats" id="note-stats">0 characters | 0 words</div>
+        </div>
+        <textarea
+          id="note-textarea"
+          class="note-textarea"
+          placeholder="Enter your notes here..."
+        ></textarea>
+        <div class="button-row">
+          <button id="generate-button" class="generate-button" disabled>
+            Generate Summary & Flashcards
+          </button>
+          <button id="clear-button" class="secondary-button" disabled>
+            Clear All
+          </button>
+        </div>
+      </section>
+
+      <section class="results-container" id="results-container">
+        <div class="columns-wrapper">
+          <div class="column">
+            <div class="summary-container">
+              <div class="section-header">
+                <h2 class="section-title">Summary</h2>
+                <button
+                  class="icon-button copy-button"
+                  id="copy-summary"
+                  title="Copy to clipboard"
+                >
+                  <i class="fas fa-copy"></i>
+                </button>
+              </div>
+              <div class="summary-content" id="summary-content">
+                Your summary will appear here...
+              </div>
+            </div>
+          </div>
+          <div class="column flashcards-column">
+            <div class="flashcards-container">
+              <div class="section-header">
+                <h2 class="section-title">Flashcards</h2>
+                <button
+                  class="icon-button copy-button"
+                  id="copy-flashcards"
+                  title="Copy to clipboard"
+                >
+                  <i class="fas fa-copy"></i>
+                </button>
+              </div>
+              <div class="flashcards-list" id="flashcards-list">
+                <div class="empty-flashcards" id="empty-flashcards">
+                  Your flashcards will appear here...
+                </div>
+                <!-- Flashcards will be inserted here -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Toast notifications -->
+      <div class="toast-container" id="toast-container"></div>
+    </main>
+
+    <script src="meaningcloud-api.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
